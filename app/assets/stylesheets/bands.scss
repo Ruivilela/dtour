@@ -1,0 +1,17 @@
+// Place all the styles related to the Bands controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.edit-button img{
+  width: 20px;
+  height: 20px;
+}
+
+.save-button.hidden img{
+  display: none;
+}
+
+.save-button.show img{
+  width: 20px;
+  height: 20px;
+  display: inline;
+}
