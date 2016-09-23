@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DeTour</title>
+    <%= csrf_meta_tags %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuj0EeEnTUi3BwAb5hDyTVTXv53m_Ayr0&libraries=places" defer async>
+    </script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application'%>
+  </head>
+
+  <body>
+
+<!-- log in  -->
+    <div id="top_bar">
+  <% if user_signed_in? %>
+    <p><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE' %></p>
+  <% else %>
+    <p>
+      <%= link_to 'Sign_up', new_user_registration_path %> |
+      <%= link_to 'Sign_in', new_user_session_path %>
+    </p>
+  <% end %>
+</div>
+<!-- end login  -->
+    <!-- Devise alerts -->
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <!-- Devise alerts -->
+    <%= yield %>
+  </body>
+</html>
