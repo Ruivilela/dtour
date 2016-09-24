@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   get 'pick/location', to:'maps#pick_location'
   get 'band/page/:id', to:'bands#show' , as: :band
+  patch 'band/page/update', to:'bands#update'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
