@@ -32,7 +32,7 @@ function initEditMode(edit_button,save_button, edit_field, static_field){
   save_button.addEventListener('click',function(){
       saveChanges(edit_field, static_field)
       quitEditMode(save_button, edit_field, static_field);
-  });  
+  });
 }
 // quitEditMode
 function quitEditMode(save_button, edit_field, static_field){
@@ -53,7 +53,7 @@ function sendToDb(info){
 
   $.ajax({
     type: 'PATCH',
-    url: "/band/page/update",
+    url: "/api/v1/band/page/update/" + params_key,
     data: update_field,
     dataType:"json",
     success: updated,
