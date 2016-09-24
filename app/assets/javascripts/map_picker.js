@@ -1,12 +1,15 @@
 var map;
 var markers = [];
 
-window.onload = function(){
-  if(window.location.pathname == '/pick/location'){
+if(window.location.pathname == '/pick/location'){
+  window.onload = function(){
     initMap({lat: -34.397, lng: 150.644});
     if('geolocation' in navigator){
       navigator.geolocation.getCurrentPosition(yourLocation, onError)
     }
+    var zoomAutoComplete = new google.maps.places.Autocomplete(
+      document.getElementById('search_location_input'));
+
     document.getElementById('search_location_button').addEventListener('click', newLocation)
   }
 }
@@ -35,7 +38,7 @@ function newLocation(){
 // search for location in the google Map api
 function searchLocation(){
   var geocoder = new google.maps.Geocoder();
-  var address_value = $('search_location_input input').val();
+  var address_value = document.getElementById('search_location_input').value;
     if (address_value == '') {console.log('must insert address')}
     else {
         geocoder.geocode({address: address_value}, function(results,status){
@@ -50,6 +53,7 @@ function searchLocation(){
 function createMarker(position){
   marker = new google.maps.Marker({
     position: position,
+    // draggable: true,
     map: map
   });
   markers.push(marker);

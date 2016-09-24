@@ -1,4 +1,4 @@
-<%=form_for(@band) do |f| %>
+<%=form_for(@band, method: 'patch', remote: true) do |f| %>
 
   <div class="field about" id="about">
     <%= f.label :about%> <br>
@@ -12,12 +12,11 @@
     </div>
 
       <div class="edit">
-        <p> <%= f.text_field :about%> teste 2 </p>
+        <%= f.text_field :about%>
       </div>
 
-      <div class="static">
+      <div class="static" id="static_about">
         <p> <%= @band.about %>  teste 1 </p>
       </div>
-
   </div>
 <%end%>
