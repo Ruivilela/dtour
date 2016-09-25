@@ -73,12 +73,12 @@ function not_working(){
 }
 // Implementing the map on band_Info_page
 function LoadMap(){
-  initTourMap()
+  initTourMap(document.getElementById('tourmap'))
   document.getElementById('add_date').addEventListener('click', openModal)
 }
 // creates the map
-function initTourMap(){
-  tour_map = new google.maps.Map(document.getElementById('tourmap'),{
+function initTourMap(element){
+  tour_map = new google.maps.Map(element,{
       center:{lat: -34.397, lng: 150.644},
       zoom: 13
     });
@@ -91,7 +91,19 @@ function CreateTourDates(position){
   });
   tour_dates.push(tourMarkers);
 }
-// openModal
+// openModal map
 function openModal(){
-  console.log('Its working bitch!!');
+  document.getElementById('map_modal').style.display ='unset';
+  LoadMapModal();
+  closeModal();
+}
+// closes the modal map
+function closeModal(){
+  document.getElementById('modal_delete').addEventListener('click', function(){
+    document.getElementById('map_modal').style.display ='none';
+  });
+}
+// handles all the map functionalities inside the modal
+function LoadMapModal(){
+  initTourMap(document.getElementById('tourmap_modal'))
 }
