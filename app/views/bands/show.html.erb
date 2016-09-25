@@ -1,76 +1,62 @@
 <!-- start name field -->
-
 <div class="field name" id="name">
-  <h3> Band Name </h3>
-    <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_name">
-
-    <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_name">
-
+    <h3> Band Name
+      <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_name">
+      <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_name">
+    </h3>
     <div class="edit">
       <input class="hidden" type=text id="band_name" placeholder="update field">
     </div>
-
     <div class="static" id="static_name">
       <p> <%= @band.name %> </p>
     </div>
 </div>
-
 <!-- end name field -->
-
-
 <!-- About editable field -->
   <div class="field about" id="about">
-    <h3> ABOUT </h3>
+    <h3> ABOUT
       <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_about">
-
       <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_about">
-
-      <div class="edit">
-        <input class="hidden" type=text id="band_about" placeholder="update field">
-      </div>
-
-      <div class="static" id="static_about">
-        <p> <%= @band.about %> </p>
-      </div>
+    </h3>
+    <div class="edit">
+      <input class="hidden" type=text id="band_about" placeholder="update field">
+    </div>
+    <div class="static" id="static_about">
+      <p> <%= @band.about %> </p>
+    </div>
   </div>
-
 <!-- end of About editable field -->
-
-
 <!-- price editable start -->
 <div class="field price" id="price">
-  <h3> Price </h3>
+  <h3> Price
     <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_price">
-
     <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_price">
-
-    <div class="edit">
-      <input class="hidden" type=number id="band_price" placeholder="update field">
-    </div>
-
-    <div class="static" id="static_price">
-      <p> <%= @band.price %> </p>
-    </div>
+  </h3>
+  <div class="edit">
+    <input class="hidden" type=number id="band_price" placeholder="update field">
+  </div>
+  <div class="static" id="static_price">
+    <p> <%= @band.price %> </p>
+  </div>
 </div>
 <!-- price editable end -->
-
 <!-- editable requirements -->
 <div class="field requirements" id="requirements">
-  <h3> requirements </h3>
+  <h3> requirements
     <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_requirements">
-
     <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_requirements">
-
-    <div class="edit">
-      <input class="hidden" type=text id="band_requirements" placeholder="update field">
-    </div>
-
-    <div class="static" id="static_requirements">
-      <p> <%= @band.requirements %> </p>
-    </div>
+  </h3>
+  <div class="edit">
+    <input class="hidden" type=text id="band_requirements" placeholder="update field">
+  </div>
+  <div class="static" id="static_requirements">
+    <p> <%= @band.requirements %> </p>
+  </div>
 </div>
 <!-- editable requirements -->
-
-<!-- #about: params[:about], price: params[:price], radius: params[:radius],
-#requirements: params[:requirements], facebook: params[:facebook], twitter: params[:twitter], soundcloud: params[:soundcloud],
-#spotify:params[:spotify], profile_pic:params[:profile_pic] -->
+<img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_date">
+<!-- start of tour map --->
+<div class="map" id="tourmap"></div>
+<!-- end of tour map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD61szX4DwMm4p0JkBGN_bBtZUSniJm3bk&libraries=places" defer>
+</script>

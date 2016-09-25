@@ -1,7 +1,11 @@
+var tour_map;
+var tour_dates = [];
+
 if(window.location.pathname.replace(/[0-9]/g, '') == '/band/page/'){
-  window.onload = function(){
-    document.addEventListener('click', checkElement);
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('click', checkElement);
+      LoadMap();
+  });
 }
 // checkFor Element
 function checkElement(event){
@@ -12,7 +16,7 @@ function checkElement(event){
     var edit_field = document.getElementById('band_' + element_targeted[1]);
     var static_field = document.getElementById('static_' + element_targeted[1]);
     EditMode(edit_button, save_button, edit_field, static_field);
-  };
+    };
 }
 // edit mode checks if it will start editing or not
 function EditMode(edit_button,save_button, edit_field, static_field){
@@ -62,8 +66,32 @@ function sendToDb(info){
 }
 // handlers results
 function updated(){
-  console.log("Congrats! You are less dumb now");
+  console.log("Congrats, working!");
 }
 function not_working(){
-  console.log("It's not working you asshole");
+  console.log("It's not working!");
+}
+// Implementing the map on band_Info_page
+function LoadMap(){
+  initTourMap()
+  document.getElementById('add_date').addEventListener('click', openModal)
+}
+// creates the map
+function initTourMap(){
+  tour_map = new google.maps.Map(document.getElementById('tourmap'),{
+      center:{lat: -34.397, lng: 150.644},
+      zoom: 13
+    });
+}
+/// Tour date markers
+function CreateTourDates(position){
+  tourMarkers = new google.maps.Marker({
+    position: position,
+    map: tour_map
+  });
+  tour_dates.push(tourMarkers);
+}
+// openModal
+function openModal(){
+  console.log('Its working bitch!!');
 }

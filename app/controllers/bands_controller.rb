@@ -5,7 +5,10 @@ before_action :authenticate_user!
     if (params[:id].to_s == current_user.id.to_s)
       @band = Band.find_by(user_id: params[:id])
     else
-      render html: "<strong> Permission is required</strong>".html_safe
+      redirect_to '/permission/denied'
     end
+  end
+
+  def error_page
   end
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'pick/location', to:'maps#pick_location'
   get 'band/page/:id', to:'bands#show' , as: :band
   patch 'band/page/update', to:'bands#update'
+  get '/permission/denied', to:'bands#error_page'
 
   namespace :api do
       namespace :v1 do
