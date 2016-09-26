@@ -84,7 +84,10 @@
             <br>
             <ul id="list_of_gigs">
               <%@tourdate.each do |gig|%>
-                <li> <%= gig.address %> </li>
+                <li class="gig_date" id="<%=gig.id%>" onmouseover="ShowDeleteButton(this)" onmouseout="HideDeleteButton(this)">
+                  <%= gig.address %> ( <%= gig.date %> )
+                  <img class="delete_button_modal hidden" src="http://image.flaticon.com/icons/png/128/70/70287.png" id="deletedatemodal_<%=gig.id%>" onclick="removeDate(this)" >
+                </li>
               <%end%>
             </ul>
           </center>

@@ -130,6 +130,11 @@ function createTourDateMarker(position, title){
 // openModal map
 function openModal(){
   document.getElementById('map_modal').style.display ='unset';
+  document.getElementById('modal_delete').addEventListener('click', closeModal);
+  document.getElementById('modal_cancel').addEventListener('click', closeModal);
+  document.getElementById('search_location_modal').addEventListener('click', search_location_modal);
+  document.getElementById('add_gig').addEventListener('click', addGig)
+  document.getElementById('save_added_gig').addEventListener('click', SaveTourDatesModal);
   LoadMapModal();
 }
 // closes the modal map
@@ -141,12 +146,6 @@ function LoadMapModal(){
   initTourMap(document.getElementById('tourmap_modal'))
   currentTourDates();
   tour_map.fitBounds(bounds);
-  /// ---- click actions ////
-  document.getElementById('modal_delete').addEventListener('click', closeModal);
-  document.getElementById('modal_cancel').addEventListener('click', closeModal);
-  document.getElementById('search_location_modal').addEventListener('click', search_location_modal);
-  document.getElementById('add_gig').addEventListener('click', addGig)
-  document.getElementById('save_added_gig').addEventListener('click', SaveTourDatesModal);
 }
 // search for result in modal
 function search_location_modal(){
@@ -172,19 +171,20 @@ function clearMarkerHistory(){
 /// add Gig
 function addGig(){
   date = document.getElementById("date_picker_modal").value
-  if ( date === "" || date <= Date.now()){
-    console.log('not acceptable')
+
+  if ( date === "" || new Date(date) <= Date.now()){
+    console.log('not acceptable input') // change css to warn the user of error
   } else {
     gig_to_add = tour_date_search.pop()
     tour_date_added.push(gig_to_add);
-    appendGig(gig_to_add);
+    appendGig(gig_to_add , date);
   }
 }
 /// append Gig
-function appendGig(gig_to_add){
+function appendGig(gig_to_add, date){
   ul = document.getElementById('list_of_gigs');
   li = document.createElement('LI');
-  city = document.createTextNode(gig_to_add.title);
+  city = document.createTextNode(gig_to_add.title + "(" + date + ")");
   li.appendChild(city);
   ul.appendChild(li);
 }
@@ -195,6 +195,7 @@ function SaveTourDatesModal(){
     marker_info["Longitude"] = String(tour_date_added[i].position.lng());
     marker_info["Latitude"] = String(tour_date_added[i].position.lat());
     marker_info["address"] = tour_date_added[i].title;
+    marker_info["date"] = document.getElementById("date_picker_modal").value;
     $.ajax({
       type: 'POST',
       url: "/api/v1/band/page/marker/create",
@@ -205,4 +206,37 @@ function SaveTourDatesModal(){
     });
   };
   closeModal();
+}
+
+function HideDeleteButton(x) {
+  document.getElementById("deletedatemodal_" + x.id).style.display = "none"
+}
+function ShowDeleteButton (x) {
+  document.getElementById("deletedatemodal_" + x.id).style.display = "unset"
+}
+/// remove date
+function removeDate(x){
+  document.getElementById(x.id.split('_')[1]).style.display = "none";
+  document.getElementById('modal_cancel').addEventListener('click', function(){
+    document.getElementById(x.id.split('_')[1]).style.display = "unset";
+  });
+  document.getElementById("save_added_gig").addEventListener('click', function(){
+    deleteDate(x.id.split('_')[1]);
+  });
+}
+// delete dates
+function deleteDate(date){
+  ul = document.getElementById('list_of_gigs');
+  ul.removeChild(document.getElementById(date));
+
+  date_to_destroy = {};
+  date_to_destroy["id"] = Number(date);
+  $.ajax({
+    type: 'DELETE',
+    url: "/api/v1/delete/date",
+    data: date_to_destroy,
+    dataType:"json",
+    success: updated,
+    error: not_working
+  });
 }
