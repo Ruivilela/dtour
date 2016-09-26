@@ -73,16 +73,27 @@
       <div class="columns">
         <div class="column">
           <input type=text id="insert_gig_place">
+          <input type="submit" value="search" id="search_location_modal">
+          <input id="date_picker_modal" type="date"/>
           <div class="map" id="tourmap_modal"> </div> <!-- map inside of the modal  -->
         </div>
         <div class="column">
-          <img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_gig">
+          <center>
+            <img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_gig">
+            <span> Add Gig </span>
+            <br>
+            <ul id="list_of_gigs">
+              <%@tourdate.each do |gig|%>
+                <li> <%= gig.address %> </li>
+              <%end%>
+            </ul>
+          </center>
         </div>
       </div>
     </section>
     <footer class="modal-card-foot">
-      <a class="button is-primary">Save changes</a>
-      <a class="button">Cancel</a>
+      <a class="button is-primary" id="save_added_gig">Save changes</a>
+      <a class="button" id="modal_cancel">Cancel</a>
     </footer>
   </div>
 </div>

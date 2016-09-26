@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   namespace :api do
       namespace :v1 do
+        # band tour dates
+        get 'band/current/markers', to:'tourdatemodelupdates#current_markers'
+        post 'band/page/marker/create', to: 'tourdatemodelupdates#create_tour_date'
+        # band info Field
         patch 'band/page/update/name', to:'bandmodelupdates#update_band_name'
         patch 'band/page/update/about', to:'bandmodelupdates#update_band_about'
         patch 'band/page/update/price', to:'bandmodelupdates#update_band_price'

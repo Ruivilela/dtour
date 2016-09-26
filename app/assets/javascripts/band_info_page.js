@@ -1,5 +1,7 @@
 var tour_map;
-var tour_dates = [];
+var tour_date_search = [];
+var tour_date_added = [];
+var bounds
 
 if(window.location.pathname.replace(/[0-9]/g, '') == '/band/page/'){
   document.addEventListener('DOMContentLoaded', function() {
@@ -71,9 +73,12 @@ function updated(){
 function not_working(){
   console.log("It's not working!");
 }
-// Implementing the map on band_Info_page
+// Implementing the map on band_Info_page //
 function LoadMap(){
-  initTourMap(document.getElementById('tourmap'))
+  initTourMap(document.getElementById('tourmap'));
+  bounds = new google.maps.LatLngBounds();
+  currentTourDates();
+  tour_map.fitBounds(bounds);
   document.getElementById('add_date').addEventListener('click', openModal)
 }
 // creates the map
@@ -83,27 +88,121 @@ function initTourMap(element){
       zoom: 13
     });
 }
+// get currentMarkers
+function currentTourDates(){
+  $.ajax({
+    type:'GET',
+    url:'/api/v1/band/current/markers',
+    success:LoadMarkers,
+    error: not_working
+  });
+}
+// LoadMarkers
+function LoadMarkers(myMarkers){
+  for(var i = 0; i < myMarkers.length; i++){
+    createCurrentMarker(i, myMarkers)
+  };
+}
+/// createsCurrentMarkers
+function createCurrentMarker(i, myMarkers){
+  new google.maps.Marker({
+    position:{
+      lat:Number(myMarkers[i]["Latitude"]),
+      lng:Number(myMarkers[i]["Longitude"])
+    },
+    map: tour_map,
+    title: myMarkers[i]['address']
+  });
+  bounds.extend({
+    lat:Number(myMarkers[i]["Latitude"]),
+    lng:Number(myMarkers[i]["Longitude"])
+  });
+}
 /// Tour date markers
-function CreateTourDates(position){
+function createTourDateMarker(position, title){
   tourMarkers = new google.maps.Marker({
     position: position,
-    map: tour_map
+    map: tour_map,
+    title: title.address_components[0].short_name
   });
-  tour_dates.push(tourMarkers);
+  tour_date_search.push(tourMarkers);
 }
 // openModal map
 function openModal(){
   document.getElementById('map_modal').style.display ='unset';
   LoadMapModal();
-  closeModal();
 }
 // closes the modal map
 function closeModal(){
-  document.getElementById('modal_delete').addEventListener('click', function(){
     document.getElementById('map_modal').style.display ='none';
-  });
 }
 // handles all the map functionalities inside the modal
 function LoadMapModal(){
   initTourMap(document.getElementById('tourmap_modal'))
+  currentTourDates();
+  tour_map.fitBounds(bounds);
+  /// ---- click actions ////
+  document.getElementById('modal_delete').addEventListener('click', closeModal);
+  document.getElementById('modal_cancel').addEventListener('click', closeModal);
+  document.getElementById('search_location_modal').addEventListener('click', search_location_modal);
+  document.getElementById('add_gig').addEventListener('click', addGig)
+  document.getElementById('save_added_gig').addEventListener('click', SaveTourDatesModal);
+}
+// search for result in modal
+function search_location_modal(){
+  clearMarkerHistory();
+  var geocoder = new google.maps.Geocoder();
+  var address_value = document.getElementById('insert_gig_place').value;
+    if (address_value == '') {console.log('must insert address')}
+    else {
+        geocoder.geocode({address: address_value}, function(results,status){
+      if (status == google.maps.GeocoderStatus.OK){
+        tour_map.setCenter(results[0].geometry.location);
+        createTourDateMarker(results[0].geometry.location, results[0]);
+        } else {console.log("location not found be more specific")}
+      });
+    }
+}
+/// clear tour date Marker History
+function clearMarkerHistory(){
+  for(var i = 0; i < tour_date_search.length; i++ ){
+    tour_date_search[i].setMap(null)
+  };
+}
+/// add Gig
+function addGig(){
+  date = document.getElementById("date_picker_modal").value
+  if ( date === "" || date <= Date.now()){
+    console.log('not acceptable')
+  } else {
+    gig_to_add = tour_date_search.pop()
+    tour_date_added.push(gig_to_add);
+    appendGig(gig_to_add);
+  }
+}
+/// append Gig
+function appendGig(gig_to_add){
+  ul = document.getElementById('list_of_gigs');
+  li = document.createElement('LI');
+  city = document.createTextNode(gig_to_add.title);
+  li.appendChild(city);
+  ul.appendChild(li);
+}
+// save tour dates
+function SaveTourDatesModal(){
+  for(var i = 0; i < tour_date_added.length; i++){
+    var marker_info ={}
+    marker_info["Longitude"] = String(tour_date_added[i].position.lng());
+    marker_info["Latitude"] = String(tour_date_added[i].position.lat());
+    marker_info["address"] = tour_date_added[i].title;
+    $.ajax({
+      type: 'POST',
+      url: "/api/v1/band/page/marker/create",
+      data: marker_info,
+      dataType:"json",
+      success: updated,
+      error: not_working
+    });
+  };
+  closeModal();
 }
