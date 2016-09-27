@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   #searches controller
-  get 'search/result/', to:'searches#show_search_results'
-
+  get 'search/result&:addressvalue', to:'searches#show_search_results'
   # bands controller
   get 'band/page/:id', to:'bands#show' , as: :band
   patch 'band/page/update', to:'bands#update'

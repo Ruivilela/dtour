@@ -4,19 +4,26 @@ var query_markers = [];
 var bounds_query
 var counter
 
-if(window.location.pathname.split('%')[0] == '/search/result'){
+if(window.location.pathname.split('&')[0] == '/search/result'){
   document.addEventListener('DOMContentLoaded', function() {
+    landingPageSearch()
     LoadQueryMap();
   });
 }
+// land page search result
+function landingPageSearch(){
+  document.getElementById('search_location_input2').value = window.location.pathname.split('&')[1];
+  searchLocation2();
+}
+
+
 // load query map
 function LoadQueryMap(){
   initQueryMap();
   bounds_query = new google.maps.LatLngBounds();
   document.getElementById('submit_search2').addEventListener('click', searchLocation2);
-  // LoadQueryMarkers()
 }
-//load Query Map
+//init Query Map
 function initQueryMap(){
   queryMap = new google.maps.Map(document.getElementById('querymap'),{
       center:{lat: -34.397, lng: 150.644},
@@ -65,7 +72,7 @@ function new_marker_position(address){
 // clear previous Search
 function clearPreviousSearch(){
   bounds_query = new google.maps.LatLngBounds();
-  clearMarkerHistory(query_markers);
+  clearMarkerHistory(query_markers);  // function in band_info_page.js
   counter = 0;
 }
 // load Markers that where searched
