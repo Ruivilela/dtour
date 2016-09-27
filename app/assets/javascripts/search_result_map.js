@@ -49,7 +49,6 @@ function createUserMarker(position){
 }
 // ajax call to get the new address
 function newDragLocation(user_marker){
-  // console.log(user_marker.position)
   $.ajax({
       type:'GET',
       url:'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + user_marker.position.lat() + ',' + user_marker.position.lng()+'&sensor=true',
@@ -60,7 +59,7 @@ function newDragLocation(user_marker){
 // gets the address of the new marker
 function new_marker_position(address){
   document.getElementById('search_location_input2').value = address['results'][0]['formatted_address'];
-  searchLocation2();  
+  searchLocation2();
 }
 // clear previous Search
 function clearPreviousSearch(){
