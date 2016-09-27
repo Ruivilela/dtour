@@ -1,7 +1,7 @@
 var queryMap
 var user_position
 var query_markers = [];
-var bounds_quer
+var bounds_query
 
 if(window.location.pathname.split('%')[0] == '/search/result'){
   document.addEventListener('DOMContentLoaded', function() {
@@ -31,18 +31,41 @@ function searchLocation2(){
     else {
         geocoder.geocode({address: address_value}, function(results,status){
       if (status == google.maps.GeocoderStatus.OK){
-        user_position = results[0].geometry.location
-        user_marker = createQueryMarker(user_position);
-        user_marker.setIcon('/maps/heavy-metal.png');
+        createUserMarker(results[0].geometry.location)
         LoadQueryMarkers();
         } else {console.log("location not found be more specific")}
       });
     }
 }
+// create UserMarker
+function createUserMarker(position){
+  user_position = position
+  var user_marker = createQueryMarker(user_position);
+  user_marker.setIcon('/maps/heavy-metal.png');
+  user_marker.setOptions({draggable: true});
+  google.maps.event.addListener(user_marker,'dragend', function (){
+    newDragLocation(user_marker)
+  });
+}
+// ajax call to get the new address
+function newDragLocation(user_marker){
+  // console.log(user_marker.position)
+  $.ajax({
+      type:'GET',
+      url:'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + user_marker.position.lat() + ',' + user_marker.position.lng()+'&sensor=true',
+      success:new_marker_position,
+      error: not_working
+  });
+}
+// gets the address of the new marker
+function new_marker_position(address){
+  document.getElementById('search_location_input2').value = address['results'][0]['formatted_address'];
+  searchLocation2();  
+}
 // clear previous Search
 function clearPreviousSearch(){
   bounds_query = new google.maps.LatLngBounds();
-  clearMarkerHistory(query_markers)
+  clearMarkerHistory(query_markers);
 }
 // load Markers that where searched
 function LoadQueryMarkers(){ 
