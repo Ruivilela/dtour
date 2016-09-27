@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  root to: 'users#profile'
+  # root to: 'users#profile'
+  root to:'searches#pick_location'
   devise_for :users
 
   #searches controller
-  get 'pick/location', to:'searches#pick_location'
   get 'search/result/', to:'searches#show_search_results'
 
   # bands controller

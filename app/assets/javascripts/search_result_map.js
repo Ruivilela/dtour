@@ -2,6 +2,7 @@ var queryMap
 var user_position
 var query_markers = [];
 var bounds_query
+var counter
 
 if(window.location.pathname.split('%')[0] == '/search/result'){
   document.addEventListener('DOMContentLoaded', function() {
@@ -65,6 +66,7 @@ function new_marker_position(address){
 function clearPreviousSearch(){
   bounds_query = new google.maps.LatLngBounds();
   clearMarkerHistory(query_markers);
+  counter = 0;
 }
 // load Markers that where searched
 function LoadQueryMarkers(){ 
@@ -112,15 +114,36 @@ function getBandInfo(id){
       success:LoadBands,
       error: not_working
   });
+
 }
 /// info of json of bands
 function LoadBands(bands){
-  document.getElementsByClassName('search_results')[0].innerHTML = appendQueryResults(bands);
+  counter++
+  if (counter % 2 != 0 ) {
+    document.getElementsByClassName('search_results')[0].innerHTML += appendQueryResultsOdd(bands);
+  }  else {
+    document.getElementById('columns_' + (counter-1)).innerHTML += appendQueryResultsPar(bands);
+  };
 }
 // appends the query result
-function appendQueryResults(band){
-  return '' + '<div class="columns">' +
-    '<div>' + 'Name:' + band['name'] + '</div>' +
-    '<div>' + 'price:' + band['price'] + '</div>' +
-    '</div>';
+function appendQueryResultsOdd(band){
+  return '' +
+  '<div class="columns" id="columns_' + counter +'">' +
+      '<div class="column">' +
+        '<div class="image">' +
+          '<img src="http://placehold.it/400x300">' +
+          '<span class="band_name">' + band['name'] + '</span>' +
+        '</div>' +
+      '</div>' +
+  '</div>';
+}
+
+function appendQueryResultsPar(band){
+  return '' +
+  '<div class="column">' +
+    '<div class="image">' +
+      '<img src="http://placehold.it/400x300">' +
+      '<span class="band_name">' + band['name'] + '</span>' +
+    '</div>' +
+  '</div>'
 }

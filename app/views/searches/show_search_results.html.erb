@@ -1,13 +1,20 @@
-<input type="text" name="search_location" id="search_location_input2">
-<input type="submit" value="Search" id="submit_search2">
 <div class="columns">
-  <div class="column is-4 is-offset-8">
+  <div class="column is-offset-1">
+    <input type="text" name="search_location" id="search_location_input2">
+    <input type="submit" value="Search" id="submit_search2">
+  </div>
+</div>
+<div class="columns">
+  <div class="column is-1">
+  </div>
+  <!-- search results go below -->
+  <div class="search_results column">
+  </div>
+  <!--- search result end -----> 
+  <div class="column">
     <div class="map" id="querymap">
     </div>
   </div>
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD61szX4DwMm4p0JkBGN_bBtZUSniJm3bk&libraries=places,geometry" defer>
 </script>
-
-<div class="search_results">
-</div> 

@@ -17,3 +17,15 @@
    height:500px;
    width:500px;
  }
+
+ .image {
+   position: relative;
+   width: 100%;
+}
+
+.band_name {
+   position: absolute;
+   top: 45%;
+   left: 30%;
+   width: 100%;
+}
