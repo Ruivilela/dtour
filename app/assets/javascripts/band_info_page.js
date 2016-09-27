@@ -149,7 +149,7 @@ function LoadMapModal(){
 }
 // search for result in modal
 function search_location_modal(){
-  clearMarkerHistory();
+  clearMarkerHistory(tour_date_search);
   var geocoder = new google.maps.Geocoder();
   var address_value = document.getElementById('insert_gig_place').value;
     if (address_value == '') {console.log('must insert address')}
@@ -163,7 +163,7 @@ function search_location_modal(){
     }
 }
 /// clear tour date Marker History
-function clearMarkerHistory(){
+function clearMarkerHistory(tour_date_search){
   for(var i = 0; i < tour_date_search.length; i++ ){
     tour_date_search[i].setMap(null)
   };

@@ -1,7 +1,7 @@
 var queryMap
 var user_position
 var query_markers = [];
-var bounds_query
+var bounds_quer
 
 if(window.location.pathname.split('%')[0] == '/search/result'){
   document.addEventListener('DOMContentLoaded', function() {
@@ -10,7 +10,8 @@ if(window.location.pathname.split('%')[0] == '/search/result'){
 }
 // load query map
 function LoadQueryMap(){
-  initQueryMap()
+  initQueryMap();
+  bounds_query = new google.maps.LatLngBounds();
   document.getElementById('submit_search2').addEventListener('click', searchLocation2);
   // LoadQueryMarkers()
 }
@@ -23,6 +24,7 @@ function initQueryMap(){
 }
 /// searchLocation2
 function searchLocation2(){
+  clearPreviousSearch();
   var geocoder = new google.maps.Geocoder();
   var address_value = document.getElementById('search_location_input2').value;
     if (address_value == '') {console.log('must insert address')}
@@ -36,6 +38,11 @@ function searchLocation2(){
         } else {console.log("location not found be more specific")}
       });
     }
+}
+// clear previous Search
+function clearPreviousSearch(){
+  bounds_query = new google.maps.LatLngBounds();
+  clearMarkerHistory(query_markers)
 }
 // load Markers that where searched
 function LoadQueryMarkers(){ 
@@ -53,24 +60,45 @@ function LoadGigs(places){
       Number(places[i]["Latitude"]),
       Number(places[i]["Longitude"])
     );
-    checkDistance(marker)
+    checkDistance(marker, places[i]["band_id"])
   }
 }
 // checkDistance if it is the right radius
-function checkDistance(gigs){
+function checkDistance(gigs,band){
   distance = google.maps.geometry.spherical.computeDistanceBetween(user_position, gigs);
   if (distance < 80000){
     createQueryMarker(gigs);
-
+    getBandInfo(band)
   };
 }
 /// create Query Marker
 function createQueryMarker(position){
   marker = new google.maps.Marker({
     position: position,
-    // draggable: true,
     map: queryMap
   });
   query_markers.push(marker);
+  bounds_query.extend(position);
+  queryMap.fitBounds(bounds_query);
   return marker;
+}
+// gets the band info
+function getBandInfo(id){
+  $.ajax({
+      type:'GET',
+      url:'/api/v1/allbands/' + id,
+      success:LoadBands,
+      error: not_working
+  });
+}
+/// info of json of bands
+function LoadBands(bands){
+  document.getElementsByClassName('search_results')[0].innerHTML = appendQueryResults(bands);
+}
+// appends the query result
+function appendQueryResults(band){
+  return '' + '<div class="columns">' +
+    '<div>' + 'Name:' + band['name'] + '</div>' +
+    '<div>' + 'price:' + band['price'] + '</div>' +
+    '</div>';
 }

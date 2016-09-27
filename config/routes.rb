@@ -24,8 +24,8 @@ Rails.application.routes.draw do
         patch 'band/page/update/requirements', to:'bandmodelupdates#update_band_requirements'
         #searches info
         get 'available/gigs', to: "searchesinfo#all_gigs"
+        get 'allbands/:id', to: 'searchesinfo#all_bands'
       end
   end
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
