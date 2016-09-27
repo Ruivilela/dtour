@@ -5,10 +5,11 @@ Rails.application.routes.draw do
 
   #searches controller
   get 'search/result&:addressvalue', to:'searches#show_search_results'
+  get 'band/page&:name&:id', to: 'searches#band_search_result'
   # bands controller
   get 'band/page/:id', to:'bands#show' , as: :band
   patch 'band/page/update', to:'bands#update'
-  get '/permission/denied', to:'bands#error_page'
+  get 'permission/denied', to:'bands#error_page'
 
   namespace :api do
       namespace :v1 do

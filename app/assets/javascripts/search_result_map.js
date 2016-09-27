@@ -3,6 +3,7 @@ var user_position
 var query_markers = [];
 var bounds_query
 var counter
+var infowindow
 
 if(window.location.pathname.split('&')[0] == '/search/result'){
   document.addEventListener('DOMContentLoaded', function() {
@@ -15,8 +16,6 @@ function landingPageSearch(){
   document.getElementById('search_location_input2').value = window.location.pathname.split('&')[1];
   searchLocation2();
 }
-
-
 // load query map
 function LoadQueryMap(){
   initQueryMap();
@@ -48,7 +47,7 @@ function searchLocation2(){
 // create UserMarker
 function createUserMarker(position){
   user_position = position
-  var user_marker = createQueryMarker(user_position);
+  var user_marker = createQueryMarker(user_position, "user");
   user_marker.setIcon('/maps/heavy-metal.png');
   user_marker.setOptions({draggable: true});
   google.maps.event.addListener(user_marker,'dragend', function (){
@@ -73,6 +72,8 @@ function new_marker_position(address){
 function clearPreviousSearch(){
   bounds_query = new google.maps.LatLngBounds();
   clearMarkerHistory(query_markers);  // function in band_info_page.js
+  query_markers = [];
+  document.getElementsByClassName('search_results')[0].innerHTML = "";
   counter = 0;
 }
 // load Markers that where searched
@@ -91,27 +92,36 @@ function LoadGigs(places){
       Number(places[i]["Latitude"]),
       Number(places[i]["Longitude"])
     );
-    checkDistance(marker, places[i]["band_id"])
+    checkDistance(marker, places[i]["band_id"], places[i]["date"])
   }
 }
 // checkDistance if it is the right radius
-function checkDistance(gigs,band){
+function checkDistance(gigs,band,date){
   distance = google.maps.geometry.spherical.computeDistanceBetween(user_position, gigs);
   if (distance < 80000){
-    createQueryMarker(gigs);
-    getBandInfo(band)
+    marker = createQueryMarker(gigs,date);
+    getBandInfo(band);
+    populateMarker(marker);
   };
 }
 /// create Query Marker
-function createQueryMarker(position){
+function createQueryMarker(position, date){
   marker = new google.maps.Marker({
     position: position,
-    map: queryMap
+    map: queryMap,
+    title: date
   });
+  populateMarker(marker)
   query_markers.push(marker);
   bounds_query.extend(position);
   queryMap.fitBounds(bounds_query);
   return marker;
+}
+// puts an info window on the marker
+function populateMarker(marker){
+  infowindow = new google.maps.InfoWindow({
+    content: "No content"
+  });
 }
 // gets the band info
 function getBandInfo(id){
@@ -121,7 +131,6 @@ function getBandInfo(id){
       success:LoadBands,
       error: not_working
   });
-
 }
 /// info of json of bands
 function LoadBands(bands){
@@ -137,20 +146,36 @@ function appendQueryResultsOdd(band){
   return '' +
   '<div class="columns" id="columns_' + counter +'">' +
       '<div class="column">' +
-        '<div class="image">' +
+        "<div class='image' onclick='redirect_to_band(this)' onmouseover='showinfowindow(this)' onmouseout='hideinfowindow(this)' id='" + band['id'] + "&" + band['name'] + "&" + counter + "'>" +
           '<img src="http://placehold.it/400x300">' +
-          '<span class="band_name">' + band['name'] + '</span>' +
+         + '<span class="band_name">' + band['name'] + '</span>' +
         '</div>' +
       '</div>' +
   '</div>';
 }
-
 function appendQueryResultsPar(band){
   return '' +
   '<div class="column">' +
-    '<div class="image">' +
+  "<div class='image' onclick='redirect_to_band(this)' onmouseover='showinfowindow(this)' onmouseout='hideinfowindow(this)' id='" + band['id'] + "&" + band['name'] + "&" + counter + "'>" +
       '<img src="http://placehold.it/400x300">' +
       '<span class="band_name">' + band['name'] + '</span>' +
     '</div>' +
   '</div>'
+}
+// redirects to the band page
+function redirect_to_band(x){
+  arr = x.id.split('&');
+  window.location = '/band/page&' + arr[1].replace(/ +/g, "") + '&' + arr[0];
+}
+/// show info window
+function showinfowindow (x){
+  arr =  x.id.split('&');
+  content = '<center> <strong>' + arr[1] + '</strong> </center>' + 'plays here at: ' + query_markers[arr[2]].title;
+  infowindow.setContent(content);
+  infowindow.open(queryMap,query_markers[arr[2]]);
+}
+// close info window on mouse out
+function hideinfowindow(x){
+  arr =  x.id.split('&');
+  infowindow.close(queryMap,query_markers[arr[2]]);
 }
