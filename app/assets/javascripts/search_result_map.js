@@ -38,6 +38,7 @@ function searchLocation2(){
     else {
         geocoder.geocode({address: address_value}, function(results,status){
       if (status == google.maps.GeocoderStatus.OK){
+        successAnimation()
         createUserMarker(results[0].geometry.location)
         LoadQueryMarkers();
         } else {console.log("location not found be more specific")}
@@ -178,4 +179,8 @@ function showinfowindow (x){
 function hideinfowindow(x){
   arr =  x.id.split('&');
   infowindow.close(queryMap,query_markers[arr[2]]);
+}
+// success animation
+function successAnimation(){
+  document.getElementById('submit_search2').className ="button is-success"
 }

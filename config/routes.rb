@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   # root to: 'users#profile'
-  root to:'searches#pick_location'
+  root to:'searches#pick_location', as: :landing_page
   devise_for :users
-
   #searches controller
   get 'search/result&:addressvalue', to:'searches#show_search_results'
   get 'band/page&:name&:id', to: 'searches#band_search_result'

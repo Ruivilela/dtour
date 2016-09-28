@@ -6,23 +6,30 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application'%>
   </head>
-
   <body>
-
-<!-- log in  -->
-    <div id="top_bar">
+<!-- navigation menu -->
+<nav class="nav has-shadow columns">
+  <div class="column is-1">
+  </div>
+  <div class="container">
+    <img class="logo nav-item" src="/logo/logo.png">
+  </div>
+  <div class="container">
+  </div>
+  <span class="notice container nav-item"><%= notice %></span>
+  <div class="container">
+    <span class="nav-item is-tab is-active is-right"><%= link_to 'Home', landing_page_path, method: 'GET'%> </span>
   <% if user_signed_in? %>
-    <p><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE' %></p>
+    <span class="nav-item is-tab"><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE' %>
+    </span>
   <% else %>
-    <p>
-      <%= link_to 'Sign_up', new_user_registration_path %> |
-      <%= link_to 'Sign_in', new_user_session_path %>
-    </p>
+    <span class="nav-item is-tab"> <%= link_to 'Sign_in', new_user_session_path %></span>
+    <span class="nav-item is-tab is-right"> <%= link_to 'Sign up', new_user_registration_path %> </span>
   <% end %>
-</div>
-<!-- end login  -->
+ </div>
+</nav>
+<!-- end of navigation menu -->
     <!-- Devise alerts -->
-    <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <!-- Devise alerts -->
     <%= yield %>
