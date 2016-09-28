@@ -1,1 +1,92 @@
-<%= @band.name %> 
+<div class="tile is-ancestor">
+  <div class="tile is-1 is-vertical">
+  </div>
+  <div class="tile is-2 is-vertical is-parent about-box">
+    <div class="tile is-child">
+    <h3 class="strong"> <center> <%= @band.name %> </center> </h3>
+    <br>
+    <img class="image is-256x256" src="<%= @band.profilepic %>" >
+    <br>
+    <center> <h3 class="strong"> About </h3> </center>
+      <div class="text-box"> <%= @band.about %> </div>
+    </div>
+  </div>
+  <div class="tile is-1 is-vertical is-parent">
+  </div>
+  <div class="tile is-horizontal is-6 is-parent">
+    <div class="tile is-child">
+      <center> <h1 class="strong"> Band Info </h1> </center>
+      <div class="tile is-child">
+          <hr class="style-one"> </hr>
+      </div>
+      <div class="tile is-child">
+        <center ><h2 class="strong subtitle is-3"> Band Requirements </h2> </center>
+        <br>
+        <%= @band.requirements %>
+      </div>
+      <br>
+      <div class="tile is-child">
+        <center> <p class="strong subtitle is-3"> Price  -
+          <span class="subtitle is-4"> <%=@band.price%>€*
+          </spa>
+        </center></p>
+      </div>
+      <br>
+      <div class="tile is-child map" id="searched_band_map">
+      </div>
+      <br>
+      <div class="tile is-parent">
+        <div class="tile is-child is-4">
+        </div>
+        <div class="tile is-child ">
+          <a class="button contact-us orange"> Contact Us!</a>
+        </div>
+      </center>
+      </div>
+    </div>
+  </div>
+  <div class="tile is-2 is-vertical is-parent">
+  </div>
+</div>
+
+<!-- blue column lool --->
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
+  </div>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
+  </div>
+</div>
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
+  </div>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
+  </div>
+</div>
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
+  </div>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
+  </div>
+</div>
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
+  </div>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
+  </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD61szX4DwMm4p0JkBGN_bBtZUSniJm3bk&libraries=places,geometry" defer>
+</script>
+
+
+<!--
+<%= @band.price %>
+<%= @band.requirements %> -->

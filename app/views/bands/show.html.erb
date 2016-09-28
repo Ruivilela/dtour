@@ -53,6 +53,19 @@
     <p> <%= @band.requirements %> </p>
   </div>
 </div>
+<!--- insert profile images -->
+<div class="field profilepic" id="profilepic">
+  <h3> profile picture
+    <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_profilepic">
+    <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_profilepic">
+  </h3>
+  <div class="edit">
+    <input class="hidden" type=text id="band_profilepic" placeholder="update field">
+  </div>
+  <div class="static" id="static_profilepic">
+    <p> <%= @band.profilepic %> </p>
+  </div>
+</div>
 <!-- editable requirements -->
 <br>
 <img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_date">

@@ -15,8 +15,22 @@
  */
 
  h1 {
-   font-size:50px; 
+   font-size:50px;
  }
+
+ h3 {
+   font-size:20px;
+ }
+
+ .strong {
+   font-weight: bold;
+ }
+ hr.style-one {
+     border: 0;
+     height: 1px;
+     background: #333;
+ }
+
  .map {
    height:500px;
    width:500px;
@@ -36,4 +50,27 @@
 
 img.logo {
   height:77px;
+}
+
+.about-box {
+    background-color:#c6d4ff;
+    /*min-height: 700px; */
+}
+.text-box {
+  height:350px;
+}
+
+#searched_band_map{
+  height: 50%;
+  width: 100%;
+}
+
+.orange {
+  color:#fbfbff;
+  background-color:#ed7d3a;
+}
+
+.contact-us{
+  height:166.66666667%; 
+  width:50%;
 }

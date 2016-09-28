@@ -10,7 +10,7 @@ class CreateBands < ActiveRecord::Migration[5.0]
       t.string :twitter, default:""
       t.string :soundcloud, default:""
       t.string :spotify, default:""
-      t.string :profile_pic, default:""
+      t.string :profilepic, default:""
       t.belongs_to :user, index: true, unique: true, foreign_key: true
 
       t.timestamps

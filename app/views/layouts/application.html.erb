@@ -20,6 +20,7 @@
   <div class="container">
     <span class="nav-item is-tab is-active is-right"><%= link_to 'Home', landing_page_path, method: 'GET'%> </span>
   <% if user_signed_in? %>
+    <span class="nav-item is-tab"><%= link_to 'Band Page', redirect_band_path, method: 'GET' %>
     <span class="nav-item is-tab"><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE' %>
     </span>
   <% else %>

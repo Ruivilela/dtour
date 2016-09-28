@@ -18,6 +18,11 @@ class Api::V1::BandmodelupdatesController < ApplicationController
     @band = Band.find_by(user_id: current_user.id)
     @band.update(requirements: params[:requirements])
   end
+
+  def update_band_profilepic
+    @band = Band.find_by(user_id: current_user.id)
+    @band.update(profilepic: params[:profilepic])
+  end
 end
 
 #about: params[:about], price: params[:price], radius: params[:radius],

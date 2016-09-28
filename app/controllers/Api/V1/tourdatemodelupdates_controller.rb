@@ -14,8 +14,3 @@ class Api::V1::TourdatemodelupdatesController < ApplicationController
     @tourdate.delete
   end
 end
-
-# private
-# def params_for_create
-#   params.require(:TourDate).permit(:Longitude,:Latitude,:address)
-# end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'band/page&:name&:id', to: 'searches#band_search_result'
   # bands controller
   get 'band/page/:id', to:'bands#show' , as: :band
+  get 'band/page/redirect', to:"bands#redirect_band", as: :redirect_band
   patch 'band/page/update', to:'bands#update'
   get 'permission/denied', to:'bands#error_page'
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
         patch 'band/page/update/about', to:'bandmodelupdates#update_band_about'
         patch 'band/page/update/price', to:'bandmodelupdates#update_band_price'
         patch 'band/page/update/requirements', to:'bandmodelupdates#update_band_requirements'
+        patch 'band/page/update/profilepic', to:'bandmodelupdates#update_band_profilepic'
         #searches info
         get 'available/gigs', to: "searchesinfo#all_gigs"
         get 'allbands/:id', to: 'searchesinfo#all_bands'

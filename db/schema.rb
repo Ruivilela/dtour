@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160924234635) do
     t.string   "twitter",      default: ""
     t.string   "soundcloud",   default: ""
     t.string   "spotify",      default: ""
-    t.string   "profile_pic",  default: ""
+    t.string   "profilepic",   default: ""
     t.integer  "user_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false

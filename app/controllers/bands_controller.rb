@@ -1,5 +1,9 @@
 class BandsController < ApplicationController
-before_action :authenticate_user!
+before_action :authenticate_user! 
+  def redirect_band
+    redirect_to '/band/page/1'
+  end
+
   def show
     if (params[:id].to_s == current_user.id.to_s)
       @band = Band.find_by(user_id: params[:id])
