@@ -25,8 +25,6 @@ function LoadQueryMap(){
 //init Query Map
 function initQueryMap(){
   queryMap = new google.maps.Map(document.getElementById('querymap'),{
-      center:{lat: -34.397, lng: 150.644},
-      zoom: 13
   });
 }
 /// searchLocation2
@@ -148,7 +146,7 @@ function appendQueryResultsOdd(band){
   '<div class="columns" id="columns_' + counter +'">' +
       '<div class="column">' +
         "<div class='image' onclick='redirect_to_band(this)' onmouseover='showinfowindow(this)' onmouseout='hideinfowindow(this)' id='" + band['id'] + "&" + band['name'] + "&" + counter + "'>" +
-          '<img src="http://placehold.it/400x300">' +
+          '<img src="' + band['profilepic'] + '">' +
          + '<span class="band_name">' + band['name'] + '</span>' +
         '</div>' +
       '</div>' +
@@ -158,7 +156,7 @@ function appendQueryResultsPar(band){
   return '' +
   '<div class="column">' +
   "<div class='image' onclick='redirect_to_band(this)' onmouseover='showinfowindow(this)' onmouseout='hideinfowindow(this)' id='" + band['id'] + "&" + band['name'] + "&" + counter + "'>" +
-      '<img src="http://placehold.it/400x300">' +
+  '<img src="' + band['profilepic'] + '">' +
       '<span class="band_name">' + band['name'] + '</span>' +
     '</div>' +
   '</div>'

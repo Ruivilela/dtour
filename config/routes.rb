@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         #searches info
         get 'available/gigs', to: "searchesinfo#all_gigs"
         get 'allbands/:id', to: 'searchesinfo#all_bands'
+        get 'current/markers/search/:band_id', to: 'searchesinfo#current_band_gig'
       end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

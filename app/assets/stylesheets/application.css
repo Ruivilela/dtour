@@ -60,7 +60,12 @@ img.logo {
   height:350px;
 }
 
-#searched_band_map{
+#searched_band_map {
+  height: 50%;
+  width: 100%;
+}
+
+#tourmap {
   height: 50%;
   width: 100%;
 }
@@ -70,7 +75,11 @@ img.logo {
   background-color:#ed7d3a;
 }
 
+.invisible {
+  visibility: hidden; 
+}
+
 .contact-us{
-  height:166.66666667%; 
+  height:166.66666667%;
   width:50%;
 }

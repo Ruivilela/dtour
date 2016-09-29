@@ -1,5 +1,5 @@
 class BandsController < ApplicationController
-before_action :authenticate_user! 
+before_action :authenticate_user!
   def redirect_band
     redirect_to '/band/page/1'
   end
@@ -15,6 +15,7 @@ before_action :authenticate_user!
       redirect_to '/permission/denied'
     end
   end
+  
   def error_page
   end
 end

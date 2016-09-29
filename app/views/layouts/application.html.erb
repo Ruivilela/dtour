@@ -24,7 +24,7 @@
     <span class="nav-item is-tab"><%= link_to 'Sign out', destroy_user_session_path, method: 'DELETE' %>
     </span>
   <% else %>
-    <span class="nav-item is-tab"> <%= link_to 'Sign_in', new_user_session_path %></span>
+    <span class="nav-item is-tab"> <%= link_to 'Log in', new_user_session_path %></span>
     <span class="nav-item is-tab is-right"> <%= link_to 'Sign up', new_user_registration_path %> </span>
   <% end %>
  </div>

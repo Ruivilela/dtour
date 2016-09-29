@@ -1,58 +1,125 @@
-<!-- start name field -->
-<div class="field name" id="name">
-    <h3> Band Name
-      <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_name">
+<!--- page starts here -->
+<div class="tile is-ancestor">
+  <div class="tile is-1 is-vertical">
+  </div>
+  <div class="tile is-2 is-vertical is-parent about-box">
+    <div class="tile is-child">
       <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_name">
-    </h3>
-    <div class="edit">
-      <input class="hidden" type=text id="band_name" placeholder="update field">
+      <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_name" onclick="startForm(this)">
+    <br>
+    <center>
+      <h3 class="strong" id="static_name"> <%= @band.name %>
+      </h3>
+    </center>
+    <input class="hidden input" type=text id="band_name" placeholder="update field">
+    <br>
+    <!-- band profile picture -->
+    <img class="image is-256x256" src="<%= @band.profilepic %>" >
+    <br>
+    <!-- band about -->
+    <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_about">
+    <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_about" onclick="startForm(this)">
+    <center>
+      <h3 class="strong">
+        About
+      </h3>
+    </center>
+      <div class="text-box" id="static_about">
+        <%= @band.about %>
+      </div>
+      <textarea class="hidden textarea" id="band_about" placeholder="update field"> </textarea>
     </div>
-    <div class="static" id="static_name">
-      <p> <%= @band.name %> </p>
+  </div>
+  <div class="tile is-1 is-vertical is-parent">
+  </div>
+  <div class="tile is-horizontal is-6 is-parent">
+    <div class="tile is-child">
+      <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button invisible">
+      <center> <h1 class="strong"> Band Info </h1> </center>
+      <div class="tile is-child">
+          <hr class="style-one"> </hr>
+      </div>
+      <div class="tile is-child">
+        <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_requirements">
+        <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_requirements" onclick="startForm(this)">
+        <center ><h2 class="strong subtitle is-3"> Band Requirements </h2> </center>
+        <br>
+        <div id="static_requirements">
+          <%= @band.requirements %>
+        </div>
+        <textarea class="hidden textarea" id="band_requirements" placeholder="update field"> </textarea>
+      </div>
+      <br>
+      <div class="tile is-child">
+        <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_price">
+        <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_price" onclick="startForm(this)">
+        <center> <p class="strong subtitle is-3"> Price  -
+          <span class="subtitle is-4" id="static_price">
+            <%=@band.price%>
+          </span>
+          <input class="hidden input" type=number id="band_price" placeholder="update field">
+          <span class="subtitle is-4">
+            €*
+          </span>
+        </center> </p>
+      </div>
+      <br>
+      <img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_date">
+      <br>
+      <div class="tile is-child map" id="tourmap">
+      </div>
+      <br>
+      <div class="tile is-parent">
+        <div class="tile is-child is-4">
+        </div>
+        <div class="tile is-child ">
+          <a class="button contact-us orange"> Contact Us!</a>
+        </div>
+      </center>
+      </div>
     </div>
+  </div>
+  <div class="tile is-2 is-vertical is-parent">
+  </div>
 </div>
-<!-- end name field -->
-<!-- About editable field -->
-  <div class="field about" id="about">
-    <h3> ABOUT
-      <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_about">
-      <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_about">
-    </h3>
-    <div class="edit">
-      <input class="hidden" type=text id="band_about" placeholder="update field">
-    </div>
-    <div class="static" id="static_about">
-      <p> <%= @band.about %> </p>
-    </div>
+
+<!-- blue column lool --->
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
   </div>
-<!-- end of About editable field -->
-<!-- price editable start -->
-<div class="field price" id="price">
-  <h3> Price
-    <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_price">
-    <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_price">
-  </h3>
-  <div class="edit">
-    <input class="hidden" type=number id="band_price" placeholder="update field">
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
   </div>
-  <div class="static" id="static_price">
-    <p> <%= @band.price %> </p>
   </div>
 </div>
-<!-- price editable end -->
-<!-- editable requirements -->
-<div class="field requirements" id="requirements">
-  <h3> requirements
-    <img src="http://image.flaticon.com/icons/svg/61/61456.svg" class="edit-button" id="edit_requirements">
-    <img src="http://www.freeiconspng.com/uploads/save-icon-20.png" class="save-button hidden" id="save_requirements">
-  </h3>
-  <div class="edit">
-    <input class="hidden" type=text id="band_requirements" placeholder="update field">
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
   </div>
-  <div class="static" id="static_requirements">
-    <p> <%= @band.requirements %> </p>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
   </div>
 </div>
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
+  </div>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
+  </div>
+</div>
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-1">
+  </div>
+  <div class="tile is-parent is-2 about-box">
+  <div class="tile is-child">
+  </div>
+  </div>
+</div>
+
+
+
+
 <!--- insert profile images -->
 <div class="field profilepic" id="profilepic">
   <h3> profile picture
@@ -66,15 +133,11 @@
     <p> <%= @band.profilepic %> </p>
   </div>
 </div>
-<!-- editable requirements -->
-<br>
-<img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_date">
-<br>
-<!-- start of tour map --->
-<div class="map" id="tourmap"></div>
-<!-- end of tour map -->
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD61szX4DwMm4p0JkBGN_bBtZUSniJm3bk&libraries=places" defer>
 </script>
+
+<!-- modal to add tours -->
 <div class="modal" id="map_modal">
   <div class="modal-background"></div>
   <div class="modal-card">
@@ -93,7 +156,8 @@
         <div class="column">
           <center>
             <img src="http://www.dropitproject.com/categories/Eightyshades/Eightyshades08.png" class="add_sign" id="add_gig">
-            <span> Add Gig </span>
+            <span class="subtitle is-5 strong"> Add Gig </span>
+            <br>
             <br>
             <ul id="list_of_gigs">
               <%@tourdate.each do |gig|%>
@@ -101,6 +165,7 @@
                   <%= gig.address %> ( <%= gig.date %> )
                   <img class="delete_button_modal hidden" src="http://image.flaticon.com/icons/png/128/70/70287.png" id="deletedatemodal_<%=gig.id%>" onclick="removeDate(this)" >
                 </li>
+                <br>
               <%end%>
             </ul>
           </center>

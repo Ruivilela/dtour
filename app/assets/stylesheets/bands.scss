@@ -4,20 +4,29 @@
 .edit-button {
   width: 20px;
   height: 20px;
+  float:right;
 }
 
 .save-button {
   width: 20px;
   height: 20px;
+  float:right;
+}
+.hidden {
+  display: none;
 }
 
-.hidden {
+.hidden.input {
+  display: none;
+}
+.hidden.textarea{
   display: none;
 }
 
 .add_sign {
   width: 20px;
   height: 20px;
+  float:right;
 }
 
 #tourmap_modal {
@@ -27,5 +36,5 @@
 
 .delete_button_modal {
   width: 20px;
-  height: 20px;  
+  height: 20px;
 }
